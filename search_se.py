@@ -6,6 +6,7 @@
 
 #   Import all needed modules 
 import time
+import codecs
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.firefox.options import Options
@@ -23,7 +24,7 @@ USERNAME = config["USERNAME"]   #   This is the solution for .env conflict with 
 PASSWORD = os.getenv("PASSWORD")
 options = Options()
 options.binary_location = r"C:\Program Files\Mozilla Firefox\firefox.exe"
-service = Service(executable_path=r"C:\Users\Admin\Desktop\experimental\geckodriver.exe")
+service = Service(executable_path=r"C:\Users\Admin\Desktop\Cursorprojcts\web-scraper-firefox\geckodriver.exe")
 driver = webdriver.Firefox(options, service=service)
 
 
@@ -48,23 +49,24 @@ class LogInGetPages:
         time.sleep(3)
         field_password.send_keys(Keys.RETURN)
         time.sleep(5)
+        driver.close()
         self.get_html_source()
 
     def get_html_source(self):
         for page in range(1, 20 + 1):
-            driver.get(url=self.url + str("films/page/") + str(page))
-            time.sleep(1)    
-            driver.find_element(By.XPATH, "//a[@href='/films/']").click()
+            driver.get(url=self.url + str("films/page/") + str(page))   
+            #   driver.find_element(By.XPATH, "//a[@href='/films/']").click() - This is alternative method
+            #   to find needed tab on website.
             time.sleep(2)
             source = driver.page_source
             time.sleep(2)
-            with open("source_file", "a") as file:
+            with codecs.open("source_file", "a", encoding="utf-8") as file:
                 file.write(source)
-
+            time.sleep(1)
         time.sleep(3)
         driver.close()
         driver.quit()
 
 
-test_try = LogInGetPages(URL, USERNAME, PASSWORD)
-test_try.login_func()
+get_page_func = LogInGetPages(URL, USERNAME, PASSWORD)
+get_page_func.get_html_source()
