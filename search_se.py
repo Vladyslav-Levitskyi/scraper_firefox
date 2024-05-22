@@ -29,7 +29,7 @@ driver = webdriver.Firefox(options, service=service)
 
 
 # Class LogInGetPages has two main functions that can logging in and save html
-# source to local machine.
+# page source to local machine.
 class LogInGetPages:
 
     def __init__(self, url, username, password):
@@ -43,7 +43,7 @@ class LogInGetPages:
         log_in.click()      
         time.sleep(2)
         field_login = driver.find_element(By.ID, "login_name")
-        field_login.send_keys(self.user)
+        field_login.send_keys(self.username)
         field_password = driver.find_element(By.ID, "login_password")
         field_password.send_keys(self.password)
         time.sleep(3)
@@ -69,4 +69,4 @@ class LogInGetPages:
 
 
 get_page_func = LogInGetPages(URL, USERNAME, PASSWORD)
-get_page_func.get_html_source()
+get_page_func.login_func()
