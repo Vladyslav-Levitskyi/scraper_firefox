@@ -4,7 +4,7 @@
 #   that we can scrape soon on our local machine.
 
 
-#   Import all needed modules 
+#   Import all needed modules. 
 import time
 import codecs
 from selenium import webdriver
@@ -20,10 +20,16 @@ import os
 load_dotenv()
 config = dotenv_values(".env")
 URL = os.getenv("URL")
-USERNAME = config["USERNAME"]   #   This is the solution for .env conflict with a symbol "@"
+USERNAME = config["USERNAME"]   #   This is the solution for .env conflict with a symbol "@".
 PASSWORD = os.getenv("PASSWORD")
 options = Options()
 options.binary_location = r"C:\Program Files\Mozilla Firefox\firefox.exe"
+#   If you want to ensure anonymity follow this short instruction:
+#   Run VPN on your PC and run Tor browser before running this programm.
+#   This method called Tor through VPN that can provide very strong protection for your personal data.
+#   Current code is for Firefox browser, but if you need using Tor just change this one string of code
+#   called "options". Change path to your browser for example: options.binary_location = r"D:\Tor browser\Browser\firefox.exe"
+#   That's all you need to protect and ensure anonymity to your personal data.
 service = Service(executable_path=r"C:\Users\Admin\Desktop\Cursorprojcts\web-scraper-firefox\geckodriver.exe")
 driver = webdriver.Firefox(options, service=service)
 
