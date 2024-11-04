@@ -7,13 +7,14 @@
 #   Import all needed modules. 
 import time
 import codecs
+import os
+import subprocess
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from dotenv import load_dotenv, dotenv_values
-import os
 
 
 #   To ensure safety for all sensitive data we will use "dotenv" module.
@@ -75,4 +76,9 @@ class LogInGetPages:
 
 
 get_page_func = LogInGetPages(URL, USERNAME, PASSWORD)
-get_page_func.login_func()
+if __name__ == "__main__":
+    # Запускаємо функцію для входу та отримання HTML
+    get_page_func.login_func()
+    
+    # Запускаємо scraper_bs.py після завершення
+    subprocess.run(["python", "scraper_bs.py"])
